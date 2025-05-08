@@ -1,0 +1,23 @@
+{
+  "name": "envlock-linux-arm64-gnu",
+  "version": "0.0.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "main": "envlock.linux-arm64-gnu.node",
+  "files": [
+    "envlock.linux-arm64-gnu.node"
+  ],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "libc": [
+    "glibc"
+  ],
+  "repository": "https://github.com/varshiljpatel/envlock.git",
+  "description": "No need to manage .env files. Just use Envlock!"
+}

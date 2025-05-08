@@ -1,0 +1,17 @@
+{
+  "name": "envlock-project",
+  "version": "0.0.0",
+  "private": "true",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.9.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=10.9.0"
+  }
+}

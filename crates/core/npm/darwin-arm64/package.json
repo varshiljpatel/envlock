@@ -1,0 +1,20 @@
+{
+  "name": "envlock-darwin-arm64",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "main": "envlock.darwin-arm64.node",
+  "files": [
+    "envlock.darwin-arm64.node"
+  ],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": "https://github.com/varshiljpatel/envlock.git",
+  "description": "No need to manage .env files. Just use Envlock!"
+}

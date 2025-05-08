@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+
+members = [
+  "crates/core"
+]
+
+[profile.dev.package."*"]
+opt-level = 1
+
+[profile.release]
+lto = true
+strip = "symbols"
+
+[profile.release.package.envlock-napi]
+opt-level = 3

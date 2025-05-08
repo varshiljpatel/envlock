@@ -1,0 +1,23 @@
+{
+  "name": "envlock-linux-arm64-musl",
+  "version": "0.0.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "main": "envlock.linux-arm64-musl.node",
+  "files": [
+    "envlock.linux-arm64-musl.node"
+  ],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "libc": [
+    "musl"
+  ],
+  "repository": "https://github.com/varshiljpatel/envlock.git",
+  "description": "No need to manage .env files. Just use Envlock!"
+}
