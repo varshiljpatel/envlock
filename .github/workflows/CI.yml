@@ -66,8 +66,8 @@ jobs:
         with:
           node-version: 20
           cache: yarn
-      - name: Build CLI
-        run: yarn workspace envlock-cli build
+      - name: Build
+        run: yarn workspaces run build:ts
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         if: ${{ !matrix.settings.docker }}
