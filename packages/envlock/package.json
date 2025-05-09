@@ -33,5 +33,6 @@
     "version": "napi version"
   },
   "repository": "https://github.com/varshiljpatel/envlock.git",
-  "description": "No need to manage .env files. Just use Envlock!"
+  "description": "No need to manage .env files. Just use Envlock!",
+  "dependencies": {}
 }
