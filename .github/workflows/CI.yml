@@ -66,8 +66,6 @@ jobs:
         with:
           node-version: 20
           cache: yarn
-      - name: Build
-        run: yarn workspaces run build:ts
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         if: ${{ !matrix.settings.docker }}
@@ -106,6 +104,8 @@ jobs:
         shell: bash
       - name: Install dependencies
         run: yarn install
+      - name: Build
+        run: yarn workspaces run build:ts
       # This setup-node is specifically for i686 on Windows.
       # Consider if the initial setup-node can handle this with an architecture parameter if matrix allows.
       - name: Setup node x86 (for i686-pc-windows-msvc)
