@@ -3,6 +3,16 @@
   "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "envlock": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    }
+  },
   "napi": {
     "name": "envlock",
     "triples": {
@@ -15,24 +25,34 @@
       ]
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/varshiljpatel/envlock.git",
+    "directory": "packages"
+  },
+  "author": {
+    "name": "Varshil J. Patel",
+    "email": "varshil.dev@gmail.com"
+  },
   "license": "Apache-2.0",
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4",
-    "ava": "^6.0.1"
+    "ava": "^6.0.1",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">= 10"
   },
   "scripts": {
     "artifacts": "napi artifacts",
+    "build:ts": "tsc",
     "build": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi --release",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "echo \"test\"",
     "universal": "napi universal",
-    "version": "napi version"
+    "version": "napi version",
+    "typecheck": "tsc --noEmit"
   },
-  "repository": "https://github.com/varshiljpatel/envlock.git",
-  "description": "No need to manage .env files. Just use Envlock!",
-  "dependencies": {}
+  "description": "No need to manage .env files. Just use Envlock!"
 }

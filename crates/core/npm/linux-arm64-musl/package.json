@@ -18,6 +18,14 @@
   "libc": [
     "musl"
   ],
-  "repository": "https://github.com/varshiljpatel/envlock.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/varshiljpatel/envlock.git",
+    "directory": "packages"
+  },
+  "author": {
+    "name": "Varshil J. Patel",
+    "email": "varshil.dev@gmail.com"
+  },
   "description": "No need to manage .env files. Just use Envlock!"
 }

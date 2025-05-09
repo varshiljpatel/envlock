@@ -310,6 +310,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { sum } = nativeBinding
+const { encrypt, decrypt } = nativeBinding
 
-module.exports.sum = sum
+module.exports.encrypt = encrypt
+module.exports.decrypt = decrypt
