@@ -47,7 +47,7 @@
     "artifacts": "napi artifacts",
     "build:ts": "tsc",
     "build": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi --release",
-    "build:debug": "napi build --platform",
+    "build:debug": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "echo \"test\"",
     "universal": "napi universal",
