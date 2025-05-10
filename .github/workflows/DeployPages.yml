@@ -29,10 +29,10 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: 20 # Specify your Node.js version, 20 is a common LTS
-          cache: 'yarn' # or 'yarn' or 'pnpm' depending on your package manager
-          cache-dependency-path: yarn.lock # Path to your lock file within the subdirectory
+        # with:
+        #   node-version: 20 # Specify your Node.js version, 20 is a common LTS
+        #   cache: 'yarn' # or 'yarn' or 'pnpm' depending on your package manager
+        #   cache-dependency-path: yarn.lock # Path to your lock file within the subdirectory
 
       - name: Install dependencies and Build
         uses: withastro/action@v3
