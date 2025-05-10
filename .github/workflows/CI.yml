@@ -150,6 +150,9 @@ jobs:
       # - test-linux-x64-musl-binding
       # - test-linux-aarch64-gnu-binding
       # - test-linux-aarch64-musl-binding
+    permissions: # Explicitly grant permissions for this job
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
@@ -166,7 +169,7 @@ jobs:
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
-        run: ls -R .
+        run: ls -R ./crates/core/npm
         shell: bash
       - name: Publish
         run: |
