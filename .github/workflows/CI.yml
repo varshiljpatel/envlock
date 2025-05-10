@@ -166,7 +166,7 @@ jobs:
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
-        run: ls -R ./crates/core/npm
+        run: ls -R .
         shell: bash
       - name: Publish
         run: |
@@ -174,11 +174,11 @@ jobs:
           if git log -1 --pretty=%B | grep "^[0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-            npm publish --access public
+            npm publish -w ${{ env.APP_NAME }} --access public
           elif git log -1 --pretty=%B | grep "^[0-9]\+\.[0-9]\+\.[0-9]\+";
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-            npm publish --tag next --access public
+            npm publish -w ${{ env.APP_NAME }} --tag next --access public
           else
             echo "Not a release, skipping publish"
           fi

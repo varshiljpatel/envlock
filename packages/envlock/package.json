@@ -42,7 +42,7 @@
     "node": ">= 10"
   },
   "scripts": {
-    "artifacts": "napi artifacts",
+    "artifacts": "napi artifacts --dist ../../crates/core/npm",
     "build:ts": "tsc",
     "build": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi --release",
     "build:debug": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi",
