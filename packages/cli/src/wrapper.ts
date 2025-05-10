@@ -22,14 +22,11 @@ export function encryptEnv(envPath: string, secret: string, outputPath: string) 
   // Encrypt the contents using the provided secret
   const encrypted = encrypt(content, secret);
 
-  // Construct the full path to the output env.lock file
-  const outputFilePath = path.join(outputPath, 'env.lock');
-
   // Write the encrypted data to the env.lock file
-  fs.writeFileSync(outputFilePath, encrypted);
+  fs.writeFileSync(outputPath, encrypted);
 
-  // Update the .gitignore file to include the env.lock file
-  updateGitignore(outputFilePath);
+  // Update the .gitignore file to include the .env file
+  updateGitignore(envPath);
 }
 
 /**
@@ -77,9 +74,9 @@ function updateGitignore(filePath: string) {
     content = fs.readFileSync(gitignorePath, 'utf8');
   }
 
-  // Get the relative path of the file to be added
-  const relativeFilePath = path.relative(process.cwd(), filePath);
-
+  // Get the relative path of the file to be added with /(forward slach)
+  const relativeFilePath = path.relative(process.cwd(), filePath).replace(/\\/g, '/');
+  
   // Append the file path to the .gitignore file if it's not already included
   if (!content.includes(relativeFilePath)) {
     fs.appendFileSync(gitignorePath, `\n${relativeFilePath}\n`);

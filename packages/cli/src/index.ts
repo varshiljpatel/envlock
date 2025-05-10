@@ -39,11 +39,11 @@ program
       const outputPath = path.join(options.output, "env.lock"); // Construct the full path to the env.lock file
       encryptEnv(envPath, secret, outputPath); // Call the encrypt function
       console.log(
-        `Environment encrypted successfully to ${path.join(outputPath, "env.lock")}`
+        `Environment encrypted successfully to ${outputPath}`
       );
     } catch (error) {
       console.error("Encryption failed:", error instanceof Error ? error.message : String(error));
-      process.exit(1);
+      process.exit();
     }
   });
 

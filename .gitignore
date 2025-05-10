@@ -195,3 +195,5 @@ Cargo.lock
 !.yarn/versions
 
 *.node
+
+!packages/envlock/examples/.env
