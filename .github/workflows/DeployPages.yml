@@ -1,5 +1,5 @@
 # .github/workflows/deploy.yml
-name: Deploy Astro Starlight to GitHub Pages
+name: Deploy Docs to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch (e.g., main or master)
@@ -32,18 +32,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20 # Specify your Node.js version, 20 is a common LTS
-          cache: 'npm' # or 'yarn' or 'pnpm' depending on your package manager
-          cache-dependency-path: app/docs/package-lock.json # Path to your lock file within the subdirectory
+          cache: 'yarn' # or 'yarn' or 'pnpm' depending on your package manager
+          cache-dependency-path: yarn.lock # Path to your lock file within the subdirectory
 
       - name: Install dependencies and Build
         uses: withastro/action@v3
         with:
           # The root location of your Astro project inside the repository.
-          path: ./app/docs
+          path: ./apps/docs
           # The specific version of Node.js that should be used to build your site.
           # node-version: 20 # Optional: If not set, uses the version from setup-node
           # The Node package manager that should be used to install dependencies and build your site.
-          # package-manager: npm # Optional: Automatically detected based on your lockfile (npm, yarn, pnpm, bun)
+          package-manager: yarn # Optional: Automatically detected based on your lockfile (npm, yarn, pnpm, bun)
 
   deploy:
     needs: build

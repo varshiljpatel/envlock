@@ -75,4 +75,5 @@ export default defineConfig({
       ],
     }),
   ],
+  site: "https://varshiljpatel.github.io/envlock",
 });

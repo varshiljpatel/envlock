@@ -1,7 +1,7 @@
 ## Envlock
 No need to manage `.env` files, Just use Envlock!
 
-Find the official Docs for this package at [Click here](https://envlock.vercel.app).
+Find the official Docs for this package at [Click here](https://varshiljpatel.github.io/envlock).
 
 ### Author:
 
