@@ -1,0 +1,19 @@
+{
+  "name": "envlock-docs",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.34.2",
+    "@fontsource/poppins": "^5.2.6",
+    "astro": "^5.6.1",
+    "sharp": "^0.32.5"
+  }
+}
