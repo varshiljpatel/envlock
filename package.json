@@ -1,7 +1,6 @@
 {
   "name": "envlock-project",
   "version": "0.0.0",
-  "private": "true",
   "main": "index.js",
   "workspaces": [
     "packages/*",
@@ -12,5 +11,6 @@
   "license": "ISC",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "yarn@4.9.1"
 }
