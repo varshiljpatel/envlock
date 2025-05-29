@@ -139,7 +139,7 @@ jobs:
           # and the .node file is in the root of that workspace directory, named APP_NAME.platform.node
           path: packages/${{ env.APP_NAME }}/${{ env.APP_NAME }}.*.node
           if-no-files-found: error # Important: Fails the workflow if no files are found
- 
+
   publish:
     name: Publish
     runs-on: ubuntu-latest
@@ -189,7 +189,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}=
-
 # name: CI
 # env:
 #   DEBUG: napi:*
