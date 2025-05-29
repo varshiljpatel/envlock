@@ -179,10 +179,10 @@ jobs:
       #   run: find . -type d -name "node_modules" -prune -o -print
       #   shell: bash
       - name: Verify .node file exists before upload
-          run: |
-            ls -la packages/${{ env.APP_NAME }}/
-            find packages/${{ env.APP_NAME }}/ -name "*.node"
-          shell: bash
+        run: |
+          ls -la packages/${{ env.APP_NAME }}/
+          find packages/${{ env.APP_NAME }}/ -name "*.node"
+        shell: bash
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
