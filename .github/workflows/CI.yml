@@ -216,8 +216,6 @@ jobs:
           name: bindings-aarch64-apple-darwin
           path: ./crates/core/npm/darwin-arm64/
 
-      - name: List crates
-        run: ls -R ./crates/core/npm/aarch64-apple-darwin
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
