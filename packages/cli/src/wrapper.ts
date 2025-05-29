@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { encrypt, decrypt } from 'envlock';
+import { encrypt, decrypt } from '@ascen/envlock';
 
 /**
  * Encrypts the contents of a .env file and writes the encrypted data to a env.lock file.
