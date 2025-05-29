@@ -187,7 +187,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: bindings-aarch64-apple-darwin
-          path: crates/core/aarch64-apple-darwin/
+          path: ./crates/core/aarch64-apple-darwin/
+      - name: List crates
+        run: ls -R ./crates/core/aarch64-apple-darwin
+      - name: List envlock crates
+        run: ls -R ./envlock/crates/core/aarch64-apple-darwin
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
