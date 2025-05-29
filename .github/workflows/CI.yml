@@ -227,17 +227,19 @@ jobs:
           if git log -1 --pretty=%B | grep "^[0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
             npm publish -w ${{ env.APP_NAME }} --access public
           elif git log -1 --pretty=%B | grep "^[0-9]\+\.[0-9]\+\.[0-9]\+";
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
             npm publish -w ${{ env.APP_NAME }} --tag next --access public
           else
             echo "Not a release, skipping publish"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}=
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 # name: CI
 # env:
 #   DEBUG: napi:*
