@@ -130,10 +130,41 @@ jobs:
             -v ${{ github.workspace }}/.cargo/registry/index:/usr/local/cargo/registry/index
             -v ${{ github.workspace }}:/build -w /build
           run: ${{ matrix.settings.build }}
+      # - name: Build (non-docker)
+      #   run: ${{ matrix.settings.build }}
+      #   if: ${{ !matrix.settings.docker }}
+      #   shell: bash # Default shell is bash, but explicit is fine
+
       - name: Build (non-docker)
-        run: ${{ matrix.settings.build }}
+        run: |
+          ${{ matrix.settings.build }}
+          # Add this to see where the .node file is after building
+          echo "Listing files after build in ${{ github.workspace }}:"
+          ls -R ${{ github.workspace }}
         if: ${{ !matrix.settings.docker }}
-        shell: bash # Default shell is bash, but explicit is fine
+        shell: bash
+
+      # Add this new step to move the .node file
+      - name: Move .node file for artifact upload
+        run: |
+          # Assuming your Rust project is under 'crates/envlock'
+          # Adjust the source path (crates/${{ env.APP_NAME }}/...)
+          # based on the 'ls -R' output from the previous step.
+          # A common napi-rs output path might be in 'crates/envlock/target/release/'
+          # For example, if it's in 'crates/envlock/target/release/envlock.darwin-x64.node',
+          # the mv command needs to reflect that.
+
+          # Example 1: If it's directly in the Rust crate root
+          # mv crates/${{ env.APP_NAME }}/${{ env.APP_NAME }}.*.node packages/${{ env.APP_NAME }}/
+
+          # Example 2: If it's in target/release (more common for native builds)
+          # Make sure the target directory exists for the moved file
+          mkdir -p packages/${{ env.APP_NAME }}
+          mv crates/core/target/${{ matrix.settings.target }}/release/${{ env.APP_NAME }}.*.node packages/${{ env.APP_NAME }}/
+
+        if: ${{ !matrix.settings.docker }} # Only for non-docker builds
+        shell: bash
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -166,7 +197,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: List files and folders (excluding node_modules and target)
-        run: find . -type d \( -name "node_modules" -o -name "target" \) -prune -o -print
+        run: find . -type d -name "node_modules" -prune -o -print
         shell: bash
       - name: Download all artifacts
         run: |
