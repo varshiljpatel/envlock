@@ -28,36 +28,39 @@ jobs:
           - host: macos-latest
             target: x86_64-apple-darwin
             build: yarn workspace envlock build --target x86_64-apple-darwin
-          - host: windows-latest
-            build: yarn workspace envlock build --target x86_64-pc-windows-msvc
-            target: x86_64-pc-windows-msvc
-          - host: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian
-            build: yarn workspace envlock build --target x86_64-unknown-linux-gnu
-          - host: ubuntu-latest
-            target: x86_64-unknown-linux-musl
-            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
-            build: yarn workspace envlock build --target x86_64-unknown-linux-musl
+          # - host: windows-latest
+          #   build: yarn workspace envlock build --target x86_64-pc-windows-msvc
+          #   target: x86_64-pc-windows-msvc
+          # - host: ubuntu-latest
+          #   target: x86_64-unknown-linux-gnu
+          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian
+          #   build: yarn workspace envlock build --target x86_64-unknown-linux-gnu
+          # - host: ubuntu-latest
+          #   target: x86_64-unknown-linux-musl
+          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+          #   build: yarn workspace envlock build --target x86_64-unknown-linux-musl
           - host: macos-latest
             target: aarch64-apple-darwin
             build: yarn workspace envlock build --target aarch64-apple-darwin
-          - host: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
-            build: yarn workspace envlock build --target aarch64-unknown-linux-gnu
-          - host: ubuntu-latest
-            target: aarch64-unknown-linux-musl
-            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine # Assuming this docker image supports aarch64-unknown-linux-musl or cross-compilation setup
-            build: |-
-              set -e &&
-              rustup target add aarch64-unknown-linux-musl &&
-              yarn workspace envlock build --target aarch64-unknown-linux-musl
-          - host: windows-latest
-            target: aarch64-pc-windows-msvc
-            build: yarn workspace envlock build --target aarch64-pc-windows-msvc
+          # - host: ubuntu-latest
+          #   target: aarch64-unknown-linux-gnu
+          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
+          #   build: yarn workspace envlock build --target aarch64-unknown-linux-gnu
+          # - host: ubuntu-latest
+          #   target: aarch64-unknown-linux-musl
+          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine # Assuming this docker image supports aarch64-unknown-linux-musl or cross-compilation setup
+          #   build: |-
+          #     set -e &&
+          #     rustup target add aarch64-unknown-linux-musl &&
+          #     yarn workspace envlock build --target aarch64-unknown-linux-musl
+          # - host: windows-latest
+          #   target: aarch64-pc-windows-msvc
+          #   build: yarn workspace envlock build --target aarch64-pc-windows-msvc
     name: stable - ${{ matrix.settings.target }} - node@20
     runs-on: ${{ matrix.settings.host }}
+    outputs:
+      # Expose all targets as a comma-separated string
+      all_targets: ${{ join(matrix.settings.*.target, ',') }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
@@ -162,11 +165,22 @@ jobs:
           cache: yarn
       - name: Install dependencies
         run: yarn install
+      - name: List all files and folders (excluding node_modules)
+        run: find . -type d -name "node_modules" -prune -o -print
+        shell: bash
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: bindings-${{ mAtrix.settings.target }}
-          path: .
+          run: |
+            IFS=',' read -ra ADDR <<< "${{ needs.build.outputs.all_targets }}"
+            for target in "${ADDR[@]}"; do
+              echo "Downloading bindings-${target}"
+              gh run download ${{ github.run_id }} -n "bindings-${target}" -D .
+            done
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required for gh CLI
+        # uses: actions/download-artifact@v4
+        # with:
+        #   name: bindings-${{ mAtrix.settings.target }}
+        #   path: .
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
