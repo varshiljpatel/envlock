@@ -165,12 +165,12 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          path: artifacts
+          name: bindings-${{ metrix.settings.target }}
+          path: .
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
-        # run: ls -R ./crates/core/npm
-        run: ls -R .
+        run: ls -R ./crates/core/npm
         shell: bash
       - name: Publish
         run: |
