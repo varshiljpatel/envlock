@@ -165,8 +165,8 @@ jobs:
           cache: yarn
       - name: Install dependencies
         run: yarn install
-      - name: List all files and folders (excluding node_modules)
-        run: find . -type d -name "node_modules" -prune -o -print
+      - name: List files and folders (excluding node_modules and target)
+        run: find . -type d \( -name "node_modules" -o -name "target" \) -prune -o -print
         shell: bash
       - name: Download all artifacts
         run: |
