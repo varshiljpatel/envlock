@@ -169,14 +169,14 @@ jobs:
         run: find . -type d -name "node_modules" -prune -o -print
         shell: bash
       - name: Download all artifacts
-          run: |
-            IFS=',' read -ra ADDR <<< "${{ needs.build.outputs.all_targets }}"
-            for target in "${ADDR[@]}"; do
-              echo "Downloading bindings-${target}"
-              gh run download ${{ github.run_id }} -n "bindings-${target}" -D .
-            done
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required for gh CLI
+        run: |
+          IFS=',' read -ra ADDR <<< "${{ needs.build.outputs.all_targets }}"
+          for target in "${ADDR[@]}"; do
+            echo "Downloading bindings-${target}"
+            gh run download ${{ github.run_id }} -n "bindings-${target}" -D .
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required for gh CLI
         # uses: actions/download-artifact@v4
         # with:
         #   name: bindings-${{ mAtrix.settings.target }}
