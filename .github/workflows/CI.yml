@@ -25,42 +25,42 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          # - host: macos-latest
-          #   target: x86_64-apple-darwin
-          #   build: yarn workspace envlock build --target x86_64-apple-darwin
-          # - host: windows-latest
-          #   build: yarn workspace envlock build --target x86_64-pc-windows-msvc
-          #   target: x86_64-pc-windows-msvc
-          # - host: ubuntu-latest
-          #   target: x86_64-unknown-linux-gnu
-          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian
-          #   build: yarn workspace envlock build --target x86_64-unknown-linux-gnu
-          # - host: ubuntu-latest
-          #   target: x86_64-unknown-linux-musl
-          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
-          #   build: yarn workspace envlock build --target x86_64-unknown-linux-musl
+          - host: macos-latest
+            target: x86_64-apple-darwin
+            build: yarn workspace envlock build --target x86_64-apple-darwin
+          - host: windows-latest
+            build: yarn workspace envlock build --target x86_64-pc-windows-msvc
+            target: x86_64-pc-windows-msvc
+          - host: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian
+            build: yarn workspace envlock build --target x86_64-unknown-linux-gnu
+          - host: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+            build: yarn workspace envlock build --target x86_64-unknown-linux-musl
           - host: macos-latest
             target: aarch64-apple-darwin
             build: yarn workspace envlock build --target aarch64-apple-darwin
-          # - host: ubuntu-latest
-          #   target: aarch64-unknown-linux-gnu
-          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
-          #   build: yarn workspace envlock build --target aarch64-unknown-linux-gnu
-          # - host: ubuntu-latest
-          #   target: aarch64-unknown-linux-musl
-          #   docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine # Assuming this docker image supports aarch64-unknown-linux-musl or cross-compilation setup
-          #   build: |-
-          #     set -e &&
-          #     rustup target add aarch64-unknown-linux-musl &&
-          #     yarn workspace envlock build --target aarch64-unknown-linux-musl
-          # - host: windows-latest
-          #   target: aarch64-pc-windows-msvc
-          #   build: yarn workspace envlock build --target aarch64-pc-windows-msvc
+          - host: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
+            build: yarn workspace envlock build --target aarch64-unknown-linux-gnu
+          - host: ubuntu-latest
+            target: aarch64-unknown-linux-musl
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine # Assuming this docker image supports aarch64-unknown-linux-musl or cross-compilation setup
+            build: |-
+              set -e &&
+              rustup target add aarch64-unknown-linux-musl &&
+              yarn workspace envlock build --target aarch64-unknown-linux-musl
+          - host: windows-latest
+            target: aarch64-pc-windows-msvc
+            build: yarn workspace envlock build --target aarch64-pc-windows-msvc
     name: stable - ${{ matrix.settings.target }} - node@20
     runs-on: ${{ matrix.settings.host }}
-    outputs:
-      # Expose all targets as a comma-separated string
-      all_targets: ${{ join(matrix.settings.*.target, ',') }}
+    # outputs:
+    #   # Expose all targets as a comma-separated string
+    #   all_targets: ${{ join(matrix.settings.*.target, ',') }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
@@ -135,21 +135,10 @@ jobs:
         if: ${{ !matrix.settings.docker }}
         shell: bash # Default shell is bash, but explicit is fine
 
-      # - name: Build (non-docker)
-      #   run: |
-      #     ${{ matrix.settings.build }}
-      #     # Add this to see where the .node file is after building
-      #     echo "Listing files after build in ${{ github.workspace }}:"
-      #     ls -R ${{ github.workspace }}
-      #   if: ${{ !matrix.settings.docker }}
-      #   shell: bash
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: bindings-${{ matrix.settings.target }}
-          # Corrected path: Assumes your APP_NAME workspace is in 'packages/APP_NAME'
-          # and the .node file is in the root of that workspace directory, named APP_NAME.platform.node
           path: packages/${{ env.APP_NAME }}/${{ env.APP_NAME }}.*.node
           if-no-files-found: error # Important: Fails the workflow if no files are found
 
@@ -178,16 +167,55 @@ jobs:
       # - name: List files and folders (excluding node_modules and target)
       #   run: find . -type d -name "node_modules" -prune -o -print
       #   shell: bash
-      - name: Verify .node file exists before upload
-        run: |
-          ls -la packages/${{ env.APP_NAME }}/
-          find packages/${{ env.APP_NAME }}/ -name "*.node"
-        shell: bash
-      - name: Download all artifacts
+
+      - name: Download x86_64-apple-darwin artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-x86_64-apple-darwin
+          path: ./crates/core/npm/darwin-x64/
+
+      - name: Download x86_64-pc-windows-msvc artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-x86_64-pc-windows-msvc
+          path: ./crates/core/npm/win32-x64-msvc/
+
+      - name: Download aarch64-pc-windows-msvc artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-aarch64-pc-windows-msvc
+          path: ./crates/core/npm/win32-arm64-msvc/
+
+      - name: Download x86_64-unknown-linux-gnu artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-x86_64-unknown-linux-gnu
+          path: ./crates/core/npm/linux-x64-gnu/
+
+      - name: Download x86_64-unknown-linux-musl artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-x86_64-unknown-linux-musl
+          path: ./crates/core/npm/linux-x64-musl/
+
+      - name: Download aarch64-unknown-linux-gnu artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-aarch64-unknown-linux-gnu
+          path: ./crates/core/npm/linux-arm64-gnu/
+
+      - name: Download aarch64-unknown-linux-musl artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bindings-aarch64-unknown-linux-musl
+          path: ./crates/core/npm/linux-arm64-musl/
+
+      - name: Download aarch64-apple-darwin artifacts
         uses: actions/download-artifact@v4
         with:
           name: bindings-aarch64-apple-darwin
-          path: ./crates/core/npm/aarch64-apple-darwin/
+          path: ./crates/core/npm/darwin-arm64/
+
       - name: List crates
         run: ls -R ./crates/core/npm/aarch64-apple-darwin
       - name: Move artifacts
