@@ -5,6 +5,30 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@ascen/envlock-cli@workspace:packages/cli":
+  version: 0.0.0-use.local
+  resolution: "@ascen/envlock-cli@workspace:packages/cli"
+  dependencies:
+    "@types/node": "npm:^22.15.17"
+    commander: "npm:^13.1.0"
+    typescript: "npm:^5.0.0"
+  bin:
+    envlock: ./dist/index.js
+  languageName: unknown
+  linkType: soft
+
+"@ascen/envlock@workspace:packages/envlock":
+  version: 0.0.0-use.local
+  resolution: "@ascen/envlock@workspace:packages/envlock"
+  dependencies:
+    "@napi-rs/cli": "npm:^2.18.4"
+    ava: "npm:^6.0.1"
+    typescript: "npm:^5.0.0"
+  bin:
+    envlock: ./dist/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@astrojs/compiler@npm:^2.11.0":
   version: 2.12.0
   resolution: "@astrojs/compiler@npm:2.12.0"
@@ -2282,18 +2306,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envlock-cli@workspace:packages/cli":
-  version: 0.0.0-use.local
-  resolution: "envlock-cli@workspace:packages/cli"
-  dependencies:
-    "@types/node": "npm:^22.15.17"
-    commander: "npm:^13.1.0"
-    typescript: "npm:^5.0.0"
-  bin:
-    envlock: ./dist/index.js
-  languageName: unknown
-  linkType: soft
-
 "envlock-docs@workspace:apps/docs":
   version: 0.0.0-use.local
   resolution: "envlock-docs@workspace:apps/docs"
@@ -2308,18 +2320,6 @@ __metadata:
 "envlock-project@workspace:.":
   version: 0.0.0-use.local
   resolution: "envlock-project@workspace:."
-  languageName: unknown
-  linkType: soft
-
-"envlock@workspace:packages/envlock":
-  version: 0.0.0-use.local
-  resolution: "envlock@workspace:packages/envlock"
-  dependencies:
-    "@napi-rs/cli": "npm:^2.18.4"
-    ava: "npm:^6.0.1"
-    typescript: "npm:^5.0.0"
-  bin:
-    envlock: ./dist/bin.js
   languageName: unknown
   linkType: soft
 
