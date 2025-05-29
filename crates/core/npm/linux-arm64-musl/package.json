@@ -1,5 +1,5 @@
 {
-  "name": "envlock-linux-arm64-musl",
+  "name": "@ascen/envlock-linux-arm64-musl",
   "version": "0.0.0",
   "os": [
     "linux"

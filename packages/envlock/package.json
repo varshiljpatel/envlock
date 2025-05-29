@@ -1,5 +1,5 @@
 {
-  "name": "envlock",
+  "name": "@ascen/envlock",
   "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
@@ -47,7 +47,7 @@
   "scripts": {
     "artifacts": "napi artifacts --dist ../../crates/core/npm",
     "build:ts": "tsc",
-    "build": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi --release",
+    "build": "yarn build:ts && napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi --release",
     "build:debug": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi",
     "prepublishOnly": "napi prepublish -t npm -p ../../crates/core/npm",
     "test": "echo \"test\"",

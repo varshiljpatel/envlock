@@ -1,5 +1,5 @@
 {
-  "name": "envlock-win32-arm64-msvc",
+  "name": "@ascen/envlock-win32-arm64-msvc",
   "version": "0.0.0",
   "os": [
     "win32"

@@ -1,6 +1,5 @@
 {
-  "name": "envlock-cli",
-  "private": true,
+  "name": "@ascen/envlock-cli",
   "version": "0.0.0",
   "type": "module",
   "main": "dist/index.js",
