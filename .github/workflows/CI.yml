@@ -25,9 +25,9 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - host: macos-latest
-            target: x86_64-apple-darwin
-            build: yarn workspace envlock build --target x86_64-apple-darwin
+          # - host: macos-latest
+          #   target: x86_64-apple-darwin
+          #   build: yarn workspace envlock build --target x86_64-apple-darwin
           # - host: windows-latest
           #   build: yarn workspace envlock build --target x86_64-pc-windows-msvc
           #   target: x86_64-pc-windows-msvc
@@ -186,8 +186,8 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bindings-*
-          path: .
+          name: bindings-aarch64-apple-darwin
+          path: crates/core/aarch64-apple-darwin/
       - name: Move artifacts
         run: yarn workspace envlock artifacts
       - name: List packages
