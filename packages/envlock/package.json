@@ -4,7 +4,12 @@
   "main": "index.js",
   "types": "index.d.ts",
   "bin": "./dist/bin.js",
-  "files": ["./dist/", "./README.md", "./package.json", "../../LICENSE"],
+  "files": [
+    "./dist/",
+    "./README.md",
+    "./package.json",
+    "../../LICENSE"
+  ],
   "exports": {
     ".": {
       "types": "./index.d.ts",
