@@ -228,12 +228,12 @@ jobs:
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
-            npm publish -w @ascen/${{ env.APP_NAME }} --access public
+            yarn workspace @ascen/envlock publish-package
           elif git log -1 --pretty=%B | grep "^[0-9]\+\.[0-9]\+\.[0-9]\+";
           then
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
-            npm publish -w @ascen/${{ env.APP_NAME }} --tag next --access public
+            yarn workspace @ascen/envlock publish-package --tag next
           else
             echo "Not a release, skipping publish"
           fi

@@ -1,6 +1,6 @@
 {
   "name": "@ascen/envlock",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": "./dist/bin.js",
@@ -57,9 +57,11 @@
     "build:debug": "napi build --platform -p envlock-napi --cargo-cwd ../../ --cargo-name envlock_napi",
     "prepublishOnly": "napi prepublish -t npm -p ../../crates/core/npm",
     "test": "echo \"test\"",
+    "publish-package": "npm publish --access public",
     "universal": "napi universal",
     "version": "napi version",
     "typecheck": "tsc --noEmit"
   },
-  "description": "No need to manage .env files. Just use Envlock!"
+  "description": "No need to manage .env files. Just use Envlock!",
+  "optionalDependencies": {}
 }
